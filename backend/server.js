@@ -12,7 +12,10 @@ const app = express()
 
 // ── Middleware ─────────────────────────────────────────────────────
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // Allow all origins for the internship prototype to prevent deployment blocking
+    callback(null, true)
+  },
   credentials: true,
 }))
 app.use(express.json({ limit: '10mb' }))
