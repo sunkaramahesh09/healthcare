@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme transition ──────────────────────────────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* ── Exceptions: don't transition things that should animate freely ── */
+.animate-spin, .animate-bounce, .animate-pulse {
+  transition: none;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-gray-50 text-gray-800 font-sans dark:bg-navy-900 dark:text-gray-100;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-gray-100 dark:bg-navy-800; }
+  ::-webkit-scrollbar-thumb { @apply bg-teal-500 rounded-full; }
+}
+
+@layer components {
+  /* ─ Glass morphism card ─ */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-white/50 shadow-xl
+           dark:bg-white/5 dark:border-white/10;
+  }
+
+  /* ─ Gradient text ─ */
+  .gradient-text {
+    @apply bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent;
+  }
+
+  /* ─ Premium button ─ */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white
+           bg-gradient-to-r from-teal-600 to-cyan-600 shadow-lg shadow-teal-500/25
+           hover:shadow-xl hover:shadow-teal-500/40 hover:-translate-y-0.5
+           transition-all duration-200 outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2
+           dark:focus:ring-offset-navy-900
+           disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold
+           border-2 border-teal-600 text-teal-600
+           hover:bg-teal-50 hover:-translate-y-0.5
+           dark:border-teal-400 dark:text-teal-400 dark:hover:bg-teal-500/10
+           transition-all duration-200 outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2
+           dark:focus:ring-offset-navy-900;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium
+           text-gray-600 hover:bg-gray-100
+           dark:text-gray-300 dark:hover:bg-white/10
+           transition-all duration-200;
+  }
+
+  /* ─ Form inputs ─ */
+  .form-input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-800
+           focus:outline-none focus:border-teal-500 focus:bg-white focus:ring-4 focus:ring-teal-500/10
+           dark:border-white/10 dark:bg-white/5 dark:text-gray-100 dark:placeholder:text-gray-500
+           dark:focus:bg-white/10 dark:focus:border-teal-500
+           transition-all duration-200 placeholder:text-gray-400 text-sm;
+  }
+  .form-input-error {
+    @apply border-red-400 bg-red-50 focus:border-red-500 focus:ring-red-500/10
+           dark:border-red-500/60 dark:bg-red-500/10;
+  }
+  .form-label {
+    @apply block text-sm font-semibold text-gray-700 mb-1.5 dark:text-gray-300;
+  }
+  .form-error {
+    @apply text-red-500 text-xs mt-1 flex items-center gap-1 dark:text-red-400;
+  }
+
+  /* ─ Section tag ─ */
+  .section-tag {
+    @apply inline-block text-xs font-bold uppercase tracking-widest text-teal-600
+           bg-teal-50 border border-teal-200 px-3 py-1 rounded-full mb-3
+           dark:text-teal-400 dark:bg-teal-500/10 dark:border-teal-500/30;
+  }
+
+  /* ─ Card ─ */
+  .card {
+    @apply bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg
+           dark:bg-white/5 dark:border-white/8 dark:shadow-none dark:hover:shadow-teal-500/5 dark:hover:border-white/15
+           transition-all duration-300 hover:-translate-y-1;
+  }
+
+  /* ─ Badge ─ */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-green  { @apply badge bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400; }
+  .badge-yellow { @apply badge bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400; }
+  .badge-red    { @apply badge bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400; }
+  .badge-blue   { @apply badge bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400; }
+  .badge-teal   { @apply badge bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400; }
+
+  /* ─ Shimmer skeleton ─ */
+  .skeleton {
+    @apply dark:opacity-20;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* ─ Theme toggle switch ─ */
+  .theme-toggle {
+    @apply relative w-12 h-6 rounded-full cursor-pointer outline-none
+           focus:ring-2 focus:ring-teal-500 focus:ring-offset-2
+           dark:focus:ring-offset-navy-900
+           transition-colors duration-300;
+  }
+}
+
+@layer utilities {
+  .animation-delay-100 { animation-delay: 0.1s; }
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-300 { animation-delay: 0.3s; }
+  .animation-delay-400 { animation-delay: 0.4s; }
+  .animation-delay-500 { animation-delay: 0.5s; }
+}
+
+/* ── Typed cursor ───────────────────────────────────────────── */
+.typed-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Gradient border trick ──────────────────────────────────── */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #0d9488, #0891b2);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Hero glow ──────────────────────────────────────────────── */
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ── Dot pattern bg ─────────────────────────────────────────── */
+.dot-pattern {
+  background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dark .dot-pattern {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+}
+
+/* ── Toast dark mode ────────────────────────────────────────── */
+:root {
+  --toast-bg: #ffffff;
+  --toast-color: #1e293b;
+  --toast-border: #e2e8f0;
+}
+.dark {
+  --toast-bg: #0f2035;
+  --toast-color: #f8fafc;
+  --toast-border: rgba(255,255,255,0.08);
+}
+.dark-toast {
+  background: var(--toast-bg) !important;
+  color: var(--toast-color) !important;
+  border: 1px solid var(--toast-border) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35) !important;
+}
+
+/* ── Select dark mode fix ───────────────────────────────────── */
+.dark select option {
+  background-color: #0f2035;
+  color: #f1f5f9;
+}
