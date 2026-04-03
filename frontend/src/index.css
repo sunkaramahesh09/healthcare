@@ -33,8 +33,10 @@
 @layer components {
   /* ─ Glass morphism card ─ */
   .glass-card {
-    @apply bg-white/80 backdrop-blur-xl border border-white/50 shadow-xl
+    @apply bg-white/90 backdrop-blur-md border border-white/50 shadow-xl
            dark:bg-white/5 dark:border-white/10;
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   /* ─ Gradient text ─ */
@@ -172,6 +174,8 @@
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* ── Dot pattern bg ─────────────────────────────────────────── */
